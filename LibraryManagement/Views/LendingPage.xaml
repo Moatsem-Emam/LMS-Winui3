@@ -1,0 +1,96 @@
+<Page  
+    x:Class="LibraryManagement.Views.LendingPage"  
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"  
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+    xmlns:vm="using:LibraryManagement.ViewModels"  
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"  
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls">
+
+    <Page.DataContext>
+        <vm:LendingViewModel />
+    </Page.DataContext>
+
+    <Grid Background="#F3F4F6" Padding="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 📌 عنوان الصفحة -->
+        <TextBlock Text="Loan Management" FontSize="26" FontWeight="Bold" Foreground="#2C3E50"   
+                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
+        <!-- 📊 إحصائيات الحجوزات -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center" Margin="0,0,0,10">
+            <Border Background="#FDE68A" Padding="20" CornerRadius="15" Width="200" Height="100" BorderBrush="#FACC15" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="📦 Total Loans" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding TotalLoans}" FontSize="20" FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+
+            <Border Background="#C7F9CC" Padding="20" CornerRadius="15" Width="200" Height="100" BorderBrush="#34D399" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="👤 Top Borrower" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding TopCustomer}" FontSize="16" TextWrapping="WrapWholeWords"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <!-- 📌 إضافة إعارة جديدة -->
+        <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="10" Margin="0,10,0,10" BorderBrush="#D1D5DB" BorderThickness="1">
+            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                <ComboBox Width="200" Height="40" ItemsSource="{Binding AvailableBooks}" DisplayMemberPath="Title"   
+                          SelectedItem="{Binding SelectedBook, Mode=TwoWay}" PlaceholderText="📖 Select Book" />
+
+                <ComboBox Width="200" Height="40" ItemsSource="{Binding Customers}" DisplayMemberPath="Name"   
+                          SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" PlaceholderText="👤 Select Customer" />
+
+                <TextBox Text="{Binding Days, Mode=TwoWay}" Width="120" Height="40" PlaceholderText="📅 Days" />
+
+                <Button Content="➕ Lend Book" Width="120" Height="40" Background="#3498DB" Foreground="White"   
+                        Command="{Binding LendBookCommand}" />
+            </StackPanel>
+        </Border>
+
+        <!-- 📌 عرض قائمة الإعارات -->
+        <Border Grid.Row="3" Background="White" BorderBrush="#D1D5DB" BorderThickness="1" CornerRadius="10" Padding="10" Margin="0,10,0,0">
+            <controls:DataGrid x:Name="EntriesGrid" AutoGenerateColumns="False"   
+                               ItemsSource="{Binding BorrowedBooks}"   
+                                IsReadOnly="True"
+                                HeadersVisibility="Column"
+                                AlternatingRowBackground="#F3F4F6"
+                                GridLinesVisibility="None"
+                                RowBackground="White"
+                                BorderThickness="0"
+                                FontSize="14"
+                                RowHeight="45"
+                                ColumnHeaderHeight="40"
+                                BorderBrush="Transparent"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                <controls:DataGrid.Columns>
+                    <controls:DataGridTextColumn Header="📖 Title" Binding="{Binding Title}" Width="*" />
+                    <controls:DataGridTextColumn Header="👤 Borrower" Binding="{Binding Customer.Name}" Width="*" />
+                    <controls:DataGridTextColumn Header="💲 Late Fee ($)" Binding="{Binding LateFeePerDay}" Width="*" />
+
+                    <controls:DataGridTemplateColumn Header="✅ Return">
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="30" Height="30" Background="Green" Foreground="White"   
+                                        Click="ReturnButton_Click"   
+                                        HorizontalAlignment="Center"   
+                                        VerticalAlignment="Center"   
+                                        Padding="0">
+                                    <SymbolIcon Symbol="Back" Width="16" Height="16"/>
+                                </Button>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
+        </Border>
+
+    </Grid>
+</Page>
