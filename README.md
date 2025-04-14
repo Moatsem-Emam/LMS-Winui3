@@ -60,8 +60,8 @@ This application helps you:
 
 ---
 
-## 📸 Screenshots (optional)
-*Add screenshots for:* 
+## 📸 Screenshots
+
 - Book Management
   ![Screenshot 2025-04-07 002029](https://github.com/user-attachments/assets/746b3f60-2610-4768-a0c0-c1557229d1f3)
 
