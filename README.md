@@ -63,8 +63,15 @@ This application helps you:
 ## 📸 Screenshots (optional)
 *Add screenshots for:* 
 - Book Management
+  ![Screenshot 2025-04-07 002029](https://github.com/user-attachments/assets/746b3f60-2610-4768-a0c0-c1557229d1f3)
+
 - Lending System
-- Customers Table
+  ![Screenshot 2025-04-07 002130](https://github.com/user-attachments/assets/e6c1c4b6-95e5-48f6-93ee-a37562e92f17)
+
+- Customer With Borrowed Books
+  ![Screenshot 2025-04-07 002154](https://github.com/user-attachments/assets/9ee46fa6-ea76-497c-b832-cbf087a5bc53)
+
+  
 
 ---
 
